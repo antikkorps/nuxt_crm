@@ -46,9 +46,6 @@
 </template>
 
 <script setup>
-import { useAuth } from "#imports"
-
-const auth = useAuth()
 const router = useRouter()
 const loading = ref(false)
 const tenants = ref([])
