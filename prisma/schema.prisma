@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String    @id @default(uuid())
+  name      String
+  domain    String?   @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  users     User[]
+  contacts  Contact[]
+  companies Company[]
+  notes     Note[]
+  roles     Role[]
+  statuses  Status[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String
+  password  String
+  firstName String
+  lastName  String
+  isActive  Boolean  @default(true)
+  roleId    String
+  tenantId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  role   Role   @relation(fields: [roleId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  contacts  Contact[]
+  companies Company[]
+  notes     Note[]
+
+  @@unique([email, tenantId])
+}
+
+model Contact {
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  email        String?
+  phone        String?
+  position     String?
+  statusId     String
+  companyId    String?
+  assignedToId String?
+  tenantId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  status     Status   @relation(fields: [statusId], references: [id])
+  company    Company? @relation(fields: [companyId], references: [id])
+  assignedTo User?    @relation(fields: [assignedToId], references: [id])
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+
+  notes Note[]
+}
+
+model Company {
+  id           String   @id @default(uuid())
+  name         String
+  website      String?
+  industry     String?
+  address      String?
+  city         String?
+  zipCode      String?
+  country      String?
+  statusId     String
+  assignedToId String?
+  tenantId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  status     Status @relation(fields: [statusId], references: [id])
+  assignedTo User?  @relation(fields: [assignedToId], references: [id])
+  tenant     Tenant @relation(fields: [tenantId], references: [id])
+
+  contacts Contact[]
+  notes    Note[]
+}
+
+model Note {
+  id          String   @id @default(uuid())
+  content     String
+  contactId   String?
+  companyId   String?
+  createdById String
+  tenantId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contact   Contact? @relation(fields: [contactId], references: [id])
+  company   Company? @relation(fields: [companyId], references: [id])
+  createdBy User     @relation(fields: [createdById], references: [id])
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String
+  permissions Json? // stocké comme un tableau JSON de permissions
+  tenantId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  users  User[]
+
+  @@unique([name, tenantId])
+}
+
+model Status {
+  id        String     @id @default(uuid())
+  name      String
+  type      StatusType // CONTACT ou COMPANY
+  color     String?
+  order     Int        @default(0)
+  tenantId  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  contacts  Contact[]
+  companies Company[]
+
+  @@unique([name, type, tenantId])
+}
+
+enum StatusType {
+  CONTACT
+  COMPANY
+}
