@@ -15,4 +15,9 @@ export default defineNuxtConfig({
     enabled: true,
   },
   css: ["~/assets/css/main.css"],
+  nitro: {
+    externals: {
+      inline: ["@prisma/client"],
+    },
+  },
 })
