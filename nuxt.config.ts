@@ -15,15 +15,4 @@ export default defineNuxtConfig({
     enabled: true,
   },
   css: ["~/assets/css/main.css"],
-nitro: {
-    preset: 'vercel',
-    externals: {
-      includes: ['node_modules/.prisma/**']
-    }
-  },
-    runtimeConfig: {
-    prisma: {
-      clientReference: './node_modules/.prisma/client'
-    }
-  }
 })
