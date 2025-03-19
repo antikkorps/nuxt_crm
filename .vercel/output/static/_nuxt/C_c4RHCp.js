@@ -1,1 +1,0 @@
-import{_ as e}from"./DlAUqK2U.js";import{c as s,o as t}from"./C-wTnlYi.js";const c={},r={class:"min-h-screen flex items-center justify-center px-4"};function o(n,a){return t(),s("div",r," this is the dashboard ")}const d=e(c,[["render",o]]);export{d as default};
