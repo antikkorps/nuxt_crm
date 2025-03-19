@@ -27,7 +27,10 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    define: {},
+    define: {
+      __dirname: JSON.stringify(__dirname),
+      __filename: JSON.stringify(__filename),
+    },
     resolve: {
       alias: {
         ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
