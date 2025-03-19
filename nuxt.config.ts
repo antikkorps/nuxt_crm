@@ -21,6 +21,13 @@ export default defineNuxtConfig({
       inline: ["@prisma/client"],
     },
   },
+  vite: {
+    resolve: {
+      alias: {
+        ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
+      },
+    },
+  },
   build: {
     transpile: ["@prisma/client"],
   },
