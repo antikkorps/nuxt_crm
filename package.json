@@ -33,6 +33,6 @@
     "@nuxt/devtools": "^2.3.0",
     "@prisma/nuxt": "^0.3.0",
     "@sidebase/nuxt-auth": "^0.10.1",
-    "@types/bcrypt": "^5.0.2",
+    "@types/bcrypt": "^5.0.2"
   }
 }
