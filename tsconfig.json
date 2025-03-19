@@ -9,6 +9,7 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   }
 }
