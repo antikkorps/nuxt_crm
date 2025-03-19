@@ -196,31 +196,15 @@
         </p>
       </div>
     </div>
-
-    <UNotification
-      v-model="notification.show"
-      :color="notification.color"
-      :icon="notification.icon"
-      :title="notification.title"
-      :description="notification.message"
-      :timeout="5000"
-    />
   </UCard>
 </template>
 
 <script setup>
+const { $toast } = useNuxtApp()
 const router = useRouter()
 const loading = ref(false)
 const passwordVisible = ref(false)
 const rememberMe = ref(false)
-
-const notification = reactive({
-  show: false,
-  title: "",
-  message: "",
-  color: "red",
-  icon: "i-heroicons-exclamation-triangle",
-})
 
 const state = reactive({
   email: "",
@@ -238,9 +222,12 @@ onMounted(() => {
 
 const handleLogin = async () => {
   if (!state.email || !state.password) {
-    notification.title = "Erreur"
-    notification.message = "Veuillez remplir tous les champs"
-    notification.show = true
+    $toast.add({
+      title: "Erreur",
+      description: "Veuillez remplir tous les champs",
+      color: "red",
+      icon: "i-heroicons-exclamation-triangle",
+    })
     return
   }
 
@@ -263,11 +250,12 @@ const handleLogin = async () => {
     router.push("/dashboard")
   } catch (error) {
     console.error("Erreur de connexion:", error)
-    notification.title = "Échec de connexion"
-    notification.message = "Identifiants incorrects. Veuillez réessayer."
-    notification.color = "red"
-    notification.icon = "i-heroicons-exclamation-triangle"
-    notification.show = true
+    $toast.add({
+      title: "Échec de connexion",
+      description: "Identifiants incorrects. Veuillez réessayer.",
+      color: "red",
+      icon: "i-heroicons-exclamation-triangle",
+    })
   } finally {
     loading.value = false
   }
