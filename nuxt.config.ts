@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   nitro: {
-    esbuild: { format: "esm" },
+    esbuild: { format: "cjs" },
     preset: "vercel",
     externals: {
       inline: ["@prisma/client"],
@@ -24,9 +24,7 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    define: {
-      __dirname: "global.__dirname",
-    },
+    define: {},
     resolve: {
       alias: {
         ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
