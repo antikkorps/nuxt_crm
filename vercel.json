@@ -1,13 +1,6 @@
 {
-  "builds": [
-    {
-      "src": "nuxt.config.ts",
-      "use": "@nuxtjs/vercel-builder",
-      "config": {
-        "prisma": {
-          "generate": true
-        }
-      }
-    }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": ".output",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install"
 }
