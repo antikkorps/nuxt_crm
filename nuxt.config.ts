@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   nitro: {
+    esbuild: { format: "cjs" },
     preset: "vercel",
     externals: {
       inline: ["@prisma/client"],
