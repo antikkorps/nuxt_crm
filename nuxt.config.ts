@@ -16,8 +16,9 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   nitro: {
-    prerender: {
-      crawlLinks: false,
+    preset: "vercel",
+    externals: {
+      inline: ["@prisma/client"],
     },
   },
   build: {
