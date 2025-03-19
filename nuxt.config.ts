@@ -20,4 +20,7 @@ export default defineNuxtConfig({
       inline: ["@prisma/client"],
     },
   },
+  build: {
+    transpile: ['@prisma/client']
+  },
 })
