@@ -15,4 +15,12 @@ export default defineNuxtConfig({
     enabled: true,
   },
   css: ["~/assets/css/main.css"],
+  nitro: {
+    prerender: {
+      crawlLinks: false,
+    },
+  },
+  build: {
+    transpile: ["@prisma/client"],
+  },
 })
