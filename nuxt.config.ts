@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   nitro: {
-    esbuild: { format: "cjs" },
+    esbuild: { format: "esm" },
     preset: "vercel",
     externals: {
       inline: ["@prisma/client"],
@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   },
   vite: {
     define: {
-      __dirname: "import.meta.url",
+      __dirname: "global.__dirname",
     },
     resolve: {
       alias: {
