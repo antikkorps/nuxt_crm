@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    define: {
+      __dirname: "import.meta.url",
+    },
     resolve: {
       alias: {
         ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
