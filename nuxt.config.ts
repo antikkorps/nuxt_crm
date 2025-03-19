@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     preset: "vercel",
     externals: {
       inline: ["@prisma/client"],
+      moduleSideEffects: ["@prisma/client"],
     },
   },
   vite: {
